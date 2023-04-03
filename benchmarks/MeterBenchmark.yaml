@@ -1,0 +1,31 @@
+test:
+    name: basic-contract-benchmark
+    description: test benchmark
+    workers:
+      number: 5
+    rounds:
+      - label: readMeter
+        description: Read meter benchmark
+        txDuration: 30
+        rateControl:
+          type: fixed-load
+          opts:
+            transactionLoad: 2
+        workload:
+          module: workload/readMeter.js
+          arguments:
+            assets: 10
+            contractId: basic
+
+      - label: addMeter
+        description: Add meter benchmark
+        txDuration: 60
+        rateControl:
+          type: fixed-load
+          opts:
+            transactionLoad: 10
+        workload:
+          module: workload/addMeter.js
+          arguments:
+            assets: 10
+            contractId: basic   
