@@ -27,5 +27,18 @@ test:
         workload:
           module: workload/addMeter.js
           arguments:
-            assets: 10
+            assets: 100
+            contractId: basic
+
+      - label: updateMeter
+        description: Update meter benchmark
+        txDuration: 60
+        rateControl:
+          type: fixed-load
+          opts:
+            transactionLoad: 10
+        workload:
+          module: workload/updateMeter.js
+          arguments:
+            assets: 100
             contractId: basic   
