@@ -10,6 +10,7 @@ class MyWorkload extends WorkloadModuleBase {
     async initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext) {
         await super.initializeWorkloadModule(workerIndex, totalWorkers, roundIndex, roundArguments, sutAdapter, sutContext);
 
+
         for (let i=0; i<this.roundArguments.assets; i++) {
             const assetID = `${this.workerIndex}_${i}`;
             console.log(`Worker ${this.workerIndex}: Creating meter ${assetID}`);
@@ -26,13 +27,15 @@ class MyWorkload extends WorkloadModuleBase {
     }
 
     async submitTransaction() {
-        const randomId = Math.floor(Math.random()*this.roundArguments.assets);
+        const randomId1 = Math.floor(Math.random()*this.roundArguments.assets);
+        const randomId2 = Math.floor(Math.random()*this.roundArguments.assets);
+        const randomId3 = Math.floor(Math.random()*this.roundArguments.assets);
         const myArgs = {
             contractId: this.roundArguments.contractId,
-            contractFunction: 'ReadMeter',
+            contractFunction: 'UpdateMeter',
             invokerIdentity: 'User1',
-            contractArguments: [`${this.workerIndex}_${randomId}`],
-            readOnly: true
+            contractArguments: [randomId1.toString(), randomId2.toString(), randomId3.toString()],
+            readOnly: false
         };
 
         await this.sutAdapter.sendRequests(myArgs);
